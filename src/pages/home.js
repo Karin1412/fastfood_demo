@@ -1,8 +1,8 @@
 // src/pages/SalesPage.js
 import React, { useState } from 'react';
 import Header from '../components/header';
-import ProductList from '../components/productList';
-import CheckoutArea from '../components/checkoutArea';
+import ProductList from '../components/home/productList';
+import CheckoutArea from '../components/home/checkoutArea';
 
 const SalesPage = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
