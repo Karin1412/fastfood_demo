@@ -1,5 +1,6 @@
 import React from 'react';
 import BG from '../../assets/background.avif'
+import { Link } from 'react-router-dom';
 function Login() {
   return (
     <div className="h-screen flex">
@@ -38,12 +39,15 @@ function Login() {
           />
         </div>
         <div className="flex items-center justify-center">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
-            Log In
-          </button>
+          <a href="/home">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Log In
+            </button>
+          </a>
+          
         </div>
       </div>
     </div>
