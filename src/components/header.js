@@ -6,7 +6,7 @@ const Header = () => {
   const menuItems = [
     { label: 'Bán hàng', link: '/home' },
     { label: 'Sản phẩm', link: '/products' },
-    { label: 'Kho', link: '/inventory' },
+    { label: 'Hóa đơn', link: '/bills' },
     { label: 'Báo cáo', link: '/reports' },
     { label: 'Khuyến mãi', link: '/promotions' },
     { label: 'Setting', link: '/settings' },
