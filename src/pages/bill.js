@@ -14,6 +14,10 @@ const InvoicePage = () => {
   const [searchCode, setSearchCode] = useState('');
   const [filterMonth, setFilterMonth] = useState('');
   const [filterYear, setFilterYear] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Số lượng sản phẩm hiển thị trên mỗi trang
+  const productsPerPage = 7;
 
   // Lọc danh sách hóa đơn dựa trên mã hóa đơn, tháng và năm
   const filteredInvoices = invoices.filter((invoice) => {
@@ -22,6 +26,25 @@ const InvoicePage = () => {
     const yearMatch = filterYear === '' || invoice.date.getFullYear() === parseInt(filterYear, 10);
     return codeMatch && monthMatch && yearMatch;
   });
+
+  // Tính toán số lượng trang
+  const totalPages = Math.ceil(filteredInvoices.length / productsPerPage);
+
+  // Lấy danh sách hóa đơn cho trang hiện tại
+  const currentInvoices = filteredInvoices.slice(
+    (currentPage - 1) * productsPerPage,
+    currentPage * productsPerPage
+  );
+
+  // Hàm xử lý sự kiện khi click vào nút "Previous Page"
+  const handlePreviousPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  // Hàm xử lý sự kiện khi click vào nút "Next Page"
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
 
   return (
     <div className="invoice-page">
@@ -79,7 +102,7 @@ const InvoicePage = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredInvoices.map((invoice, index) => (
+            {currentInvoices.map((invoice, index) => (
               <tr key={index}>
                 <td>{invoice.code}</td>
                 <td>{invoice.productName}</td>
@@ -90,6 +113,26 @@ const InvoicePage = () => {
             ))}
           </tbody>
         </table>
+
+        {/* Phân trang */}
+        <div className="mt-4 flex justify-end">
+          <div>
+            <button
+              className="bg-blue-500 text-white px-4 py-1 ml-2"
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+            >
+              Previous Page
+            </button>
+            <button
+              className="bg-blue-500 text-white px-4 py-1 ml-2"
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+            >
+              Next Page
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

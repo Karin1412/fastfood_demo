@@ -3,18 +3,22 @@ import React, { useState } from 'react';
 import Header from '../components/header';
 import '../style/report.css'; // Import the CSS file
 
+
 const ReportPage = () => {
   const [products] = useState([
     { id: 1, name: 'Sản phẩm A', price: 100, amount: 100, date: '2023-01-15' },
     { id: 2, name: 'Sản phẩm B', price: 150, amount: 130, date: '2023-02-20' },
     { id: 3, name: 'Sản phẩm C', price: 200, amount: 130, date: '2023-02-25' },
+
     // ... (Thêm sản phẩm khác)
   ]);
 
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
-  const [selectedStockMonth, setSelectedStockMonth] = useState(''); // Thêm state cho bộ lọc tồn
-  const [selectedStockYear, setSelectedStockYear] = useState(''); // Thêm state cho bộ lọc tồn
+  const [selectedStockMonth, setSelectedStockMonth] = useState('');
+  const [selectedStockYear, setSelectedStockYear] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(7);
 
   // Hàm tính tồn kho
   const calculateStock = (product) => {
@@ -40,6 +44,20 @@ const ReportPage = () => {
       revenue: product.price * product.amount,
       stock: calculateStock(product), // Số lượng tồn
     }));
+
+  // Lấy danh sách sản phẩm cho trang hiện tại
+  const currentProducts = filteredData.slice(
+    (currentPage - 1) * productsPerPage,
+    currentPage * productsPerPage
+  );
+
+  // Tính toán số lượng trang
+  const totalPages = Math.ceil(filteredData.length / productsPerPage);
+
+  // Hàm xử lý sự kiện khi chuyển trang
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <div className="report-page">
@@ -86,7 +104,7 @@ const ReportPage = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((item) => (
+            {currentProducts.map((item) => (
               <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>{item.revenue}</td>
@@ -95,10 +113,27 @@ const ReportPage = () => {
           </tbody>
         </table>
 
-        {/* Bộ lọc tồn kho */}
-        
+        {/* Phân trang */}
+        <div className="mt-4 flex justify-end">
+          <div>
+            <button
+              className="bg-blue-500 text-white px-4 py-1 ml-2"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous Page
+            </button>
+            <button
+              className="bg-blue-500 text-white px-4 py-1 ml-2"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next Page
+            </button>
+          </div>
+        </div>
 
-        {/* Bảng báo cáo tồn kho */}
+        {/* Bộ lọc tồn kho */}
         <h2 className="text-2xl font-bold mt-4 mb-4">Bảo cáo tồn kho</h2>
 
         <div className="filter-section">
@@ -127,6 +162,7 @@ const ReportPage = () => {
           </select>
         </div>
 
+        {/* Bảng báo cáo tồn kho */}
         <table className="report-table">
           <thead>
             <tr>
@@ -135,7 +171,7 @@ const ReportPage = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((item) => (
+            {currentProducts.map((item) => (
               <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>{item.stock}</td>
@@ -143,6 +179,26 @@ const ReportPage = () => {
             ))}
           </tbody>
         </table>
+
+        {/* Phân trang */}
+        <div className="mt-4 flex justify-end">
+          <div>
+            <button
+              className="bg-blue-500 text-white px-4 py-1 ml-2"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous Page
+            </button>
+            <button
+              className="bg-blue-500 text-white px-4 py-1 ml-2"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next Page
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
