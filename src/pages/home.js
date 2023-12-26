@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import Header from '../components/header';
 import ProductList from '../components/home/productList';
 import CheckoutArea from '../components/home/checkoutArea';
+import Bill from '../components/home/bill';
 
 const SalesPage = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [isCheckoutVisible, setCheckoutVisible] = useState(false);
 
   const handleProductSelect = (product) => {
     const existingProduct = selectedProducts.find((p) => p.id === product.id);
@@ -43,6 +45,18 @@ const SalesPage = () => {
     setSelectedProducts(selectedProducts.filter((p) => p.id !== product.id));
   };
 
+  const handleCheckout = () => {
+    setCheckoutVisible(true);
+  };
+
+  const handleCancel = () => {
+    setCheckoutVisible(false);
+    // Thêm bất kỳ xử lý khác khi hủy hóa đơn, nếu cần
+  };
+
+  const handlePrint = () => {
+    // Thêm xử lý in hóa đơn, nếu cần
+  };
   return (
     <div className="flex h-screen">
       {/* Header */}
@@ -62,8 +76,22 @@ const SalesPage = () => {
           onIncrease={handleIncrease}
           onDecrease={handleDecrease}
           onRemove={handleRemove}
+          onCheckout={handleCheckout}
         />
       </div>
+       {/* Hiển thị Hóa đơn */}
+       {isCheckoutVisible && (
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-md shadow-lg">
+            <h2 className="text-xl font-bold mb-4">Hóa đơn</h2>
+            <Bill
+              selectedProducts={selectedProducts}
+              onCancel={handleCancel}
+              onPrint={handlePrint}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
