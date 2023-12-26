@@ -8,14 +8,13 @@ const Header = () => {
     { label: 'Sản phẩm', link: '/products' },
     { label: 'Hóa đơn', link: '/bills' },
     { label: 'Báo cáo', link: '/reports' },
-    { label: 'Khuyến mãi', link: '/promotions' },
-    { label: 'Setting', link: '/settings' },
+    { label: 'Đăng xuất', link: '/' },
   ];
 
   return (
     <div className="bg-gray-800 h-screen text-white p-4">
       <div className="mb-4">
-        <Link to="/" className="text-lg font-bold">POS System</Link>
+        <Link to="/home" className="text-lg font-bold">POS System</Link>
       </div>
       <nav>
         <ul>
