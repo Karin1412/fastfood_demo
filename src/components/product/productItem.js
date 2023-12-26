@@ -1,7 +1,7 @@
 // src/components/ProductItem.js
 import React from 'react';
 
-const ProductItem = ({ id, name, price, onDelete, onEdit }) => {
+const ProductItem = ({ id, name, price, amount, onDelete, onEdit }) => {
   // Hàm xử lý sự kiện khi người dùng click vào nút "Sửa"
   const handleEditClick = () => {
     // Gọi hàm xử lý sự kiện từ props và truyền id của sản phẩm
@@ -22,8 +22,11 @@ const ProductItem = ({ id, name, price, onDelete, onEdit }) => {
       <td className="border border-gray-400 py-2 px-4">
         {name}
       </td>
-      <td className="border border-gray-400 py-2 px-4 text-center">
+      <td className="border border-gray-400 py-2 px-4">
         {price}
+      </td>
+      <td className="border border-gray-400 py-2 px-4">
+        {amount}
       </td>
       <td className="border border-gray-400 py-2 px-4 text-center">
         {/* Gọi hàm xử lý sự kiện khi người dùng click vào nút "Sửa" */}

@@ -9,6 +9,7 @@ const ProductTable = ({ products, onDelete, onEdit }) => (
         <th className="border border-gray-400 py-2 px-4">ID</th>
         <th className="border border-gray-400 py-2 px-4">Tên sản phẩm</th>
         <th className="border border-gray-400 py-2 px-4">Giá</th>
+        <th className="border border-gray-400 py-2 px-4">Số lượng</th>
         <th className="border border-gray-400 py-2 px-4">Thao tác</th>
       </tr>
     </thead>
@@ -19,6 +20,7 @@ const ProductTable = ({ products, onDelete, onEdit }) => (
           id={product.id}
           name={product.name}
           price={product.price}
+          amount={product.amount}
           onDelete={onDelete}
           onEdit={onEdit}
         />

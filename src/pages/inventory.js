@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import Header from '../components/header';
-import ProductTable from '../components/product/productTable';
-import ProductForm from '../components/product/productForm';
-import '../style/product.css'
+import ProductTable from '../components/inventory/productTable';
+import ProductForm from '../components/inventory/productForm';
+import '../style/inventory.css'
 
-const ProductManagementPage = () => {
+const Inventory = () => {
     const [products, setProducts] = useState([
-      { id: 1, name: 'Sản phẩm A', price: 100 , amount: 100},
-      { id: 2, name: 'Sản phẩm B', price: 150 , amount: 130},
-      { id: 3, name: 'Sản phẩm C', price: 200 , amount: 130},
-      { id: 4, name: 'Sản phẩm D', price: 100 , amount: 120},
-      { id: 5, name: 'Sản phẩm E', price: 150 , amount: 110},
-      { id: 6, name: 'Sản phẩm F', price: 200 , amount: 200},
-      { id: 7, name: 'Sản phẩm G', price: 100 , amount: 130},
-      { id: 8, name: 'Sản phẩm H', price: 150 , amount: 130},
-      { id: 9, name: 'Sản phẩm I', price: 200 , amount: 130},
-      { id: 10, name: 'Sản phẩm A', price: 100 , amount: 130},
-      { id: 11, name: 'Sản phẩm B', price: 150 , amount: 130},
-      { id: 12, name: 'Sản phẩm C', price: 200 , amount: 130},
+      { id: 1, name: 'Sản phẩm A', amount: 100 },
+      { id: 2, name: 'Sản phẩm B', amount: 150 },
+      { id: 3, name: 'Sản phẩm C', amount: 200 },
+      { id: 4, name: 'Sản phẩm D', amount: 100 },
+      { id: 5, name: 'Sản phẩm E', amount: 150 },
+      { id: 6, name: 'Sản phẩm F', amount: 200 },
+      { id: 7, name: 'Sản phẩm G', amount: 100 },
+      { id: 8, name: 'Sản phẩm H', amount: 150 },
+      { id: 9, name: 'Sản phẩm I', amount: 200 },
+      { id: 10, name: 'Sản phẩm A', amount: 100 },
+      { id: 11, name: 'Sản phẩm B', amount: 150 },
+      { id: 12, name: 'Sản phẩm C', amount: 200 },
       // ... (Thêm nhiều sản phẩm khác)
     ]);
   
@@ -72,22 +72,13 @@ const ProductManagementPage = () => {
     
       const handleProductAdd = (newProduct) => {
         setProducts([...products, newProduct]);
-        setSuccessMessage('Thêm sản phẩm thành công!');
+        setSuccessMessage('Nhập sản phẩm thành công!');
         setTimeout(() => {
         setSuccessMessage('');
         }, 3000); // Hiển thị thông báo trong 3 giây, sau đó ẩn
         handleFormClose();
       };
 
-      const handleProductUpdate = (updatedProduct) => {
-        setProducts((prevProducts) =>
-          prevProducts.map((product) =>
-            product.id === updatedProduct.id ? updatedProduct : product
-          )
-        );
-      };
-
-      
       const handleProductDelete = (productId) => {
         // Xử lý logic xóa sản phẩm ở đây
         setProducts(products.filter((product) => product.id !== productId));
@@ -104,7 +95,7 @@ const ProductManagementPage = () => {
   
         {/* Vùng quản lý sản phẩm dạng bảng */}
         <div className="product-management-content">
-          <h1 className="text-2xl font-bold mb-4">Quản lý sản phẩm</h1>
+          <h1 className="text-2xl font-bold mb-4">Quản lý kho</h1>
 
           {successMessage && (
           <div className="bg-green-200 text-green-800 p-2 mb-4">
@@ -129,7 +120,7 @@ const ProductManagementPage = () => {
             />
             {/* Nút "Thêm" */}
             <button className="bg-green-500 text-white px-4 py-1" onClick={handleAdd}>
-              Thêm
+              Nhập sản phẩm
             </button>
           </div>
   
@@ -156,9 +147,9 @@ const ProductManagementPage = () => {
             </div>
           </div>
         </div>
-        {isFormOpen && <ProductForm onClose={handleFormClose} onProductAdd={handleProductAdd} existingProducts={products} onProductUpdate={handleProductUpdate}/>}
+        {isFormOpen && <ProductForm onClose={handleFormClose} onProductAdd={handleProductAdd} />}
       </div>
     );
   };
   
-  export default ProductManagementPage;
+  export default Inventory;
